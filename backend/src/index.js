@@ -20,7 +20,7 @@ app.use(cookieParser())
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://mern-chat-5dg4.onrender.com"  // replace with your Render URL
+  "https://mern-chat-5dg4.onrender.com"
 ];
 
 app.use(cors({
