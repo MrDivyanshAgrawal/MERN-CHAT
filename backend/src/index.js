@@ -18,28 +18,19 @@ app.use(express.json())
 
 app.use(cookieParser())
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://mern-chat-5dg4.onrender.com"
-];
-
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-}));
+    origin: ["http://localhost:5173",
+        "https://mern-chat-5dg4.onrender.com",
+    ],
+    credentials:true
+}))
 app.use("/api/auth",authRoutes)
 app.use("/api/message",messageRoutes)
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.get("/*", (req, res) => {
+  app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
 }
