@@ -38,6 +38,7 @@
 
 ## 📂 Project Structure
 
+```text
 MERN-CHAT/
 ├─ backend/               # Node.js & Express backend
 │  ├─ models/             # MongoDB Schemas
@@ -53,7 +54,7 @@ MERN-CHAT/
 │  │  └─ utils/           # Helpers, theme utils
 ├─ README.md
 └─ package.json
-
+```
 ---
 
 ## 🎉 Conclusion
