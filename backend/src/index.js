@@ -33,7 +33,7 @@ app.use("/api/message", messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
   // Absolute path to frontend build
-  const frontendPath = path.join(__dirname, "../../frontend/dist");
+  const frontendPath = path.join(__dirname, "../frontend/dist");
   app.use(express.static(frontendPath));
 
   // Catch-all route
