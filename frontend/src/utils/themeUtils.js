@@ -1,11 +1,11 @@
 // src/utils/themeUtils.js
 
 // Default theme
-export const DEFAULT_THEME = "profileDefault"; // the ProfilePage default
+export const DEFAULT_THEME = "midnight"; // the ProfilePage default
 
 // Gradient themes map (including the default theme)
 export const GRADIENT_MAP = {
-  profileDefault: "bg-gradient-to-br from-pink-500 via-purple-600 to-indigo-600", // default
+  Twilight: "bg-gradient-to-br from-pink-500 via-purple-600 to-indigo-600", // default
   sunset: "bg-gradient-to-br from-pink-400 to-orange-500",
   ocean: "bg-gradient-to-br from-cyan-400 to-blue-600",
   aurora: "bg-gradient-to-br from-purple-500 to-green-400",

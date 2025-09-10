@@ -22,8 +22,14 @@ function SettingsPage() {
   const appliedTheme = theme || DEFAULT_THEME;
   const isGradient = isGradientTheme(appliedTheme);
 
+  // Classes
   const borderClass = isGradient ? "border-white/20" : "border-base-300";
   const shadowClass = "shadow-lg";
+  const textClass = isGradient ? "text-white" : "text-base-content";
+  const subTextClass = isGradient ? "text-white" : "text-base-content/70";
+  const placeholderClass = isGradient
+    ? "placeholder-white/70"
+    : "placeholder-base-content/60";
 
   return (
     <div
@@ -37,46 +43,59 @@ function SettingsPage() {
         <div className={`space-y-6 rounded-xl border ${borderClass} p-6 ${shadowClass}`}>
           {/* Theme Selector Header */}
           <div className="flex flex-col gap-1">
-            <h2 className="text-lg font-semibold text-base-content">Theme</h2>
-            <p className="text-sm text-base-content/70">
+            <h2 className={`text-lg font-semibold ${textClass}`}>Theme</h2>
+            <p className={`text-sm ${subTextClass}`}>
               Choose a theme for your chat interface
             </p>
           </div>
 
           {/* Theme Grid */}
           <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
-            {THEMES.map((t) => (
-              <button
-                key={t}
-                className={`group flex flex-col items-center gap-1.5 p-2 rounded-lg transition-colors border ${borderClass} ${shadowClass} ${
-                  appliedTheme === t ? "bg-base-200" : "hover:bg-base-200/50"
-                }`}
-                onClick={() => setTheme(t)}
-              >
-                <div
-                  className={`relative h-8 w-full rounded-md overflow-hidden ${
-                    isGradientTheme(t) ? GRADIENT_MAP[t] : ""
+            {THEMES.map((t) => {
+              const selected = appliedTheme === t;
+              const tIsGradient = isGradientTheme(t);
+
+              return (
+                <button
+                  key={t}
+                  className={`group flex flex-col items-center gap-1.5 p-2 rounded-lg transition-colors border ${borderClass} ${shadowClass} ${
+                    selected ? "bg-base-200" : "hover:bg-base-200/50"
                   }`}
-                  data-theme={!isGradientTheme(t) ? t : undefined}
+                  onClick={() => setTheme(t)}
                 >
-                  {!isGradientTheme(t) && (
-                    <div className="absolute inset-0 grid grid-cols-4 gap-px p-1">
-                      <div className="rounded bg-primary"></div>
-                      <div className="rounded bg-secondary"></div>
-                      <div className="rounded bg-accent"></div>
-                      <div className="rounded bg-neutral"></div>
-                    </div>
-                  )}
-                </div>
-                <span className="text-[11px] font-medium truncate w-full text-center text-base-content">
-                  {t.charAt(0).toUpperCase() + t.slice(1)}
-                </span>
-              </button>
-            ))}
+                  <div
+                    className={`relative h-8 w-full rounded-md overflow-hidden ${
+                      tIsGradient ? GRADIENT_MAP[t] : ""
+                    }`}
+                    data-theme={!tIsGradient ? t : undefined}
+                  >
+                    {!tIsGradient && (
+                      <div className="absolute inset-0 grid grid-cols-4 gap-px p-1">
+                        <div className="rounded bg-primary"></div>
+                        <div className="rounded bg-secondary"></div>
+                        <div className="rounded bg-accent"></div>
+                        <div className="rounded bg-neutral"></div>
+                      </div>
+                    )}
+                  </div>
+                  <span
+                    className={`text-[11px] font-medium truncate w-full text-center ${
+                      selected
+                        ? "text-base-content" // dark text for selected white box
+                        : tIsGradient
+                        ? "text-white" // white text for gradients
+                        : textClass
+                    }`}
+                  >
+                    {t.charAt(0).toUpperCase() + t.slice(1)}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Preview Section */}
-          <h3 className="text-lg font-semibold mb-3 text-base-content">
+          <h3 className={`text-lg font-semibold mb-3 ${textClass}`}>
             Preview
           </h3>
 
@@ -105,24 +124,10 @@ function SettingsPage() {
                         J
                       </div>
                       <div>
-                        <h3
-                          className={`${
-                            isGradient
-                              ? "text-white"
-                              : "text-sm font-medium text-base-content"
-                          }`}
-                        >
+                        <h3 className={`text-sm font-medium ${textClass}`}>
                           John Doe
                         </h3>
-                        <p
-                          className={`text-xs ${
-                            isGradient
-                              ? "text-white/70"
-                              : "text-base-content/70"
-                          }`}
-                        >
-                          Online
-                        </p>
+                        <p className={`text-xs ${subTextClass}`}>Online</p>
                       </div>
                     </div>
                   </div>
@@ -144,14 +149,6 @@ function SettingsPage() {
                         ? "bg-white/10 border border-white/30 text-white"
                         : "bg-base-200 border border-base-300 text-base-content";
 
-                      const timeClass = isSent
-                        ? isGradient
-                          ? "text-white/70"
-                          : "text-base-content/70"
-                        : isGradient
-                        ? "text-white/60"
-                        : "text-base-content/60";
-
                       return (
                         <div
                           key={message.id}
@@ -163,7 +160,7 @@ function SettingsPage() {
                             className={`max-w-[80%] rounded-xl px-4 py-2 shadow-sm border ${bubbleClass}`}
                           >
                             <p className="text-sm">{message.content}</p>
-                            <p className={`text-[10px] mt-1.5 ${timeClass}`}>
+                            <p className={`text-[10px] mt-1.5 ${subTextClass}`}>
                               12:00 PM
                             </p>
                           </div>
@@ -183,11 +180,7 @@ function SettingsPage() {
                     >
                       <input
                         type="text"
-                        className={`flex-1 bg-transparent outline-none text-sm ${
-                          isGradient
-                            ? "text-white placeholder-white/60"
-                            : "text-base-content"
-                        }`}
+                        className={`flex-1 bg-transparent outline-none text-sm ${textClass} ${placeholderClass}`}
                         placeholder="Type a message..."
                         value="This is a preview"
                         readOnly

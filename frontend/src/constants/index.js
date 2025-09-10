@@ -1,6 +1,6 @@
 // constants.js
 export const THEMES = [
-  "profileDefault",
+  "pastel",
   "light",
   "dark",
   "cupcake",
@@ -14,7 +14,6 @@ export const THEMES = [
   "garden",
   "forest",
   "aqua",
-  "pastel",
   "fantasy",
   "luxury",
   "dracula",
@@ -23,6 +22,7 @@ export const THEMES = [
   "coffee",  
   "winter",
   "nord",
+  "Twilight",
   "sunset",     
   "ocean",      
   "aurora",     
